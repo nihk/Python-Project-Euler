@@ -20,8 +20,8 @@ def sum_all_multiples(multiple, ceiling):
     return multiple * (reduced_ceiling * (reduced_ceiling + 1) / 2)
 
 ceiling = 1000
-sum = sum_all_multiples(3, ceiling) + sum_all_multiples(5, ceiling) - sum_all_multiples(15, ceiling)
 # sum_all_multiples(15, ceiling) is subtracted since common factors of multiples of 3 and 5 will be added twice
 # by the previous function calls
+sum = sum_all_multiples(3, ceiling) + sum_all_multiples(5, ceiling) - sum_all_multiples(15, ceiling)
 
 print sum   # 233168
