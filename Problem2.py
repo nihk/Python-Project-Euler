@@ -45,11 +45,12 @@ print sum  # 4613732
 # Alternate means of doing the above using an array which has the added benefit of storing all the even numbers
 # of the fibonacci series under 4000000
 even_fibs = [0, 2]  # initialize array with first two even numbers of the fib series
+tail = len(even_fibs) - 1
 sum = 0
 
-for i in range (1, 4000000):
-    sum += even_fibs[i]
-    even_fibs.append(4 * even_fibs[i] + even_fibs[i - 1])
+while even_fibs[tail] < 4000000:
+    sum += even_fibs[tail]
+    even_fibs.append(4 * even_fibs[tail] + even_fibs[tail - 1])
+    tail += 1
 
 print sum  # 4613732
-
