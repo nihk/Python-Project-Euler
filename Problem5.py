@@ -1,5 +1,3 @@
-import math
-
 # #
 # 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
 #
@@ -95,6 +93,6 @@ smallest_divisible = 1
 prime_factors = get_prime_factor_occurrences(20)
 
 for i in prime_factors:
-    smallest_divisible *= math.pow(i, prime_factors[i])
+    smallest_divisible *= i ** prime_factors[i]
 
 print smallest_divisible  # 232792560.0
