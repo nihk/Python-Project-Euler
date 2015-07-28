@@ -95,4 +95,4 @@ prime_factors = get_prime_factor_occurrences(20)
 for i in prime_factors:
     smallest_divisible *= i ** prime_factors[i]
 
-print smallest_divisible  # 232792560.0
+print smallest_divisible  # 232792560
