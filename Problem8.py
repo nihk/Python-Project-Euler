@@ -52,6 +52,40 @@ huge_number = '73167176531330624919225119674426574742355349194934' \
 # with the knowledge of what 4 * 5 * 6 * 7 is, it would be superfluous to just make the former calculation outright. One
 # just needs to divide the product of 4 * 5 * 6 * 7 by 4 and multiply it by 8 to get the answer to 5 * 6 * 7 * 8.
 
+def print_greatest_product(adjacent_limit):
+    greatest_product = 0
+    greatest_product_adjacencies = 0
+    first_pass_without_zero = True
+
+    # Get the product of the first 13 digits
+    product = multiply_all_adjacent(huge_number[0:adjacent_limit])
+
+    # Shift the adjacent thirteen values over by dividing by the first digit and multiplying by the
+    # rightmost right neighbour. The presence of a 0 complicates matters and must be dealt with to
+    # prevent division by zero.
+    i = 1
+
+    while i < len(huge_number) - adjacent_limit:
+        small_number = huge_number[i:i + adjacent_limit]
+
+        if not "0" in small_number:  # If it contains 0 it will yield a product of 0, so skip it
+            if first_pass_without_zero:  # First time without a 0 product it needs to calculate all 13 adjacent digits
+                product = multiply_all_adjacent(small_number)
+                first_pass_without_zero = False
+            else:
+                product /= int(huge_number[i - 1])  # Divide by previous head
+                product *= int(small_number[adjacent_limit - 1])  # Multiply by new tail
+        else:
+            first_pass_without_zero = True
+
+        if product > greatest_product:
+            greatest_product = product
+            greatest_product_adjacencies = small_number
+
+        i += 1
+
+    print greatest_product_adjacencies, "made the product", greatest_product
+
 def multiply_all_adjacent(n):
     product = 1
     i = 0
@@ -61,38 +95,4 @@ def multiply_all_adjacent(n):
 
     return product
 
-# Get the product of the first 13 digits
-product = multiply_all_adjacent(huge_number[0:13])
-
-# Helper variables
-greatest_product = 0
-greatest_product_adjacencies = 0  # The string of 13 numbers that made the greatest product
-adjacent_limit = 13
-first_pass_without_zero = True
-i = 1  # The looping variable starts at 1 since the first thirteen were calculated already previously
-
-# Shift the adjacent thirteen values over by dividing by the first digit and multiplying by the
-# rightmost right neighbour. The presence of a 0 complicates matters and must be dealt with to
-# prevent division by zero.
-
-while i < len(huge_number) - adjacent_limit:
-    small_number = huge_number[i:i + adjacent_limit]
-
-    if not "0" in small_number:  # If it contains 0 it will yield a product of 0, so skip it
-        if first_pass_without_zero:  # First time without a 0 product it needs to calculate all 13 adjacent digits
-            product = multiply_all_adjacent(small_number)
-            first_pass_without_zero = False
-        else:
-            product /= int(huge_number[i - 1])  # Divide by previous head
-            product *= int(small_number[adjacent_limit - 1])  # Multiply by new end
-    else:
-        first_pass_without_zero = True
-
-    if product > greatest_product:
-        greatest_product = product
-        greatest_product_adjacencies = small_number
-
-    i += 1
-
-# 5576689664895 made the product 23514624000
-print greatest_product_adjacencies, "made the product", greatest_product
+print_greatest_product(13)  # 5576689664895 made the product 23514624000
