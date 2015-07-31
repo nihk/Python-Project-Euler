@@ -45,6 +45,13 @@ huge_number = '73167176531330624919225119674426574742355349194934' \
               '05886116467109405077541002256983155200055935729725' \
               '71636269561882670428252483600823257530420752963450'
 
+# I went with a sliding calculation algorithm. To get the product of a number at indices 1-14 I simply
+# need to divide the product of indices 0-13 by index 0 and multiply it by the number at index 14.
+# This prevents a lot of redundant calculations compared to getting products from n to n + 13 indices by
+# ignoring any of the previous calculations made. E.g. if one were to ask what the product of 5 * 6 * 7 * 8 is
+# with the knowledge of what 4 * 5 * 6 * 7 is, it would be superfluous to just make the former calculation outright. One
+# just needs to divide the product of 4 * 5 * 6 * 7 by 4 and multiply it by 8 to get the answer to 5 * 6 * 7 * 8.
+
 def multiply_all_adjacent(n):
     product = 1
     i = 0
@@ -87,4 +94,5 @@ while i < len(huge_number) - adjacent_limit:
 
     i += 1
 
+# 5576689664895 made the product 23514624000
 print greatest_product_adjacencies, "made the product", greatest_product
