@@ -117,3 +117,9 @@ while num_divisors <= 500:
     i += 1
 
 print triangle_value, "has", num_divisors, "divisors."  # 76576500 has 576 divisors
+
+# The above algorithm could be sped up by starting with a premade dictionary of primes and exponents for keys/values.
+# These values, representing exponents, would be updated as new numbers are tested. This would be a more
+# efficient approach because the method above has to create a new dictionary of primes for every successive
+# triangle value. The issue with this solution, however, is that one will have to manually input an arbitrary
+# dictionary size beforehand, and that size value (to my understanding) cannot be predetermined.
