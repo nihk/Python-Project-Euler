@@ -121,7 +121,8 @@ def get_collatz_chains(limit):
                         collatz_chain_lengths[k] += collatz_chain_lengths[j]
                         if k == i:
                             break
-                    # Break the while loop because all further values of 'j' have already been determined
+                    # Break the while loop because all further values of 'j' have already had
+                    # their chain lengths determined previously
                     break
 
     return collatz_chain_lengths
