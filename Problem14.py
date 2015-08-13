@@ -111,7 +111,7 @@ def get_collatz_chains(limit):
                         collatz_chain_lengths[j] = 1
                         collatz_numbers.append(j)
 
-                # if j is in collatz_chain_lengths already, then I just need to add that chain length value
+                # if 'j' is in collatz_chain_lengths already, then I just need to add that chain length value
                 # and not iterate redundantly through them all with += 1
                 # Therefore, with the example of 3, the key 2 was already in the dictionary, so I add the value of
                 # that key to everything previously on the chain that 3 had. So:
@@ -121,6 +121,7 @@ def get_collatz_chains(limit):
                         collatz_chain_lengths[k] += collatz_chain_lengths[j]
                         if k == i:
                             break
+                    # Break the while loop because all further values of 'j' have already been determined
                     break
 
     return collatz_chain_lengths
