@@ -139,4 +139,5 @@ def print_longest_collatz_chain(limit):
     print longest_chain, 'had the longest chain with a length of', longest_chain_length
 
 
+# 837799 had the longest chain with a length of 525
 print_longest_collatz_chain(1000000)
