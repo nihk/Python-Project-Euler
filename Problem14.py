@@ -63,4 +63,80 @@ print "Longest chain starts on", longest_chain, "with a chain length of", longes
 # can see, it overlaps with what was already calculated by testing the value 3. To get the chain length of 6, the
 # program should only have to calculate the length of 3 plus 1 to get a length of 9.
 
-collatz_chain_lengths = {}
+def get_collatz_chains(limit):
+    collatz_chain_lengths = {}
+    collatz_numbers = []
+
+    for i in range(1, limit):
+        # If 'i' isn't in the dictionary, add it, otherwise just continue to the next 'i' value
+        if i not in collatz_chain_lengths:
+            # All chains start with a length of 1
+            collatz_chain_lengths[i] = 1
+            # This collatz_numbers array is needed to remember what the previous collatz number was. I can't
+            # get the previous collatz simply by inversing the n /= 2 or n = 3n + 1 because with even numbers
+            # it's impossible to tell what the previous collatz was. E.g. for 8, the previous number might've
+            # been 16 [16 / 2 == 8] or 2.33~ [3 * 2.33~ + 1 == 8]. This array instead just remembers exactly what
+            # that previous collatz number was.
+            collatz_numbers.append(i)
+
+            # 'j' is assigned the value of 'i' so it can test through its chain while 'i' is preserved
+            j = i
+            # Perform chain calculation
+            while j != 1:
+                if j % 2 == 0:
+                    j /= 2
+                else:
+                    j = 3 * j + 1
+
+                if j not in collatz_chain_lengths:
+                    # Iterate backwards through the history of collatz numbers, adding one to each previous key until
+                    # the key is equal to the 'i' value being tested.
+                    # E.g. for the number 3 the chain is:
+                    # 3 --> 10 --> 5 --> 16 --> 8 --> 4 --> 2 [2 is in dictionary, so end here]
+                    # The dictionary updates like so:
+                    # 3: 1
+                    # 3: 2, 10: 1
+                    # 3: 3, 10: 2, 5: 1
+                    # etc., until:
+                    # 3: 6, 10: 5, 5: 4 , 16: 3, 8: 2, 4: 1
+                    # ***NB, the above values in this current state are incorrect; this is fixed by the "else"
+                    # of this if/else statement, see "else" comment below.
+                    for k in reversed(collatz_numbers):
+                        collatz_chain_lengths[k] += 1
+                        if k == i:
+                            break
+
+                    # I only need to store numbers < limit
+                    if j < limit:
+                        collatz_chain_lengths[j] = 1
+                        collatz_numbers.append(j)
+
+                # if j is in collatz_chain_lengths already, then I just need to add that chain length value
+                # and not iterate redundantly through them all with += 1
+                # Therefore, with the example of 3, the key 2 was already in the dictionary, so I add the value of
+                # that key to everything previously on the chain that 3 had. So:
+                # 3: 6 + 2, 10: 5 + 2, 5: 4 + 2 , 16: 3 + 2, 8: 2 + 2, 4: 1 + 2
+                else:
+                    for k in reversed(collatz_numbers):
+                        collatz_chain_lengths[k] += collatz_chain_lengths[j]
+                        if k == i:
+                            break
+                    break
+
+    return collatz_chain_lengths
+
+def print_longest_collatz_chain(limit):
+    collatz_chain_lengths = get_collatz_chains(limit)
+
+    longest_chain = 0
+    longest_chain_length = 0
+
+    for i in collatz_chain_lengths:
+        if collatz_chain_lengths[i] > longest_chain_length:
+            longest_chain = i
+            longest_chain_length = collatz_chain_lengths[i]
+
+    print longest_chain, 'had the longest chain with a length of', longest_chain_length
+
+
+print_longest_collatz_chain(1000000)
