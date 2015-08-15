@@ -14,7 +14,7 @@
 # NOTE: Once the chain starts the terms are allowed to go above one million.
 
 # Brute-force approach; tests every integer. I wrote this originally in Java and it found the answer in about
-# two seconds, yet when rewritten with the same computational logic in Python it usually takes over thirty seconds!
+# two seconds, yet when rewritten with the same computational logic in Python it usually takes over ninety seconds!
 
 longest_chain = 0
 longest_chain_length = 0
