@@ -15,7 +15,6 @@ def factorial(n):
     return product
 
 def sum_fact_digits(n):
-
     n_fact = str(factorial(n))
     sum_digits = 0
 
