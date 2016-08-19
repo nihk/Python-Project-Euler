@@ -62,7 +62,7 @@ def get_primes_below(n):
     # Get the only even prime out of the way
     i = 2
     j = i
-    # i <= n / i because because j will be multiplying by i to turn the appropriate array index False.
+    # j <= n / i because because j will be multiplying by i to turn the appropriate array index False.
     # This means i * j cannot exceed n / i, or else it goes out bounds of the array's indices.
     # e.g. for n == 11, i = 2, j = i, I can access values[i * j], [i * j+1], [i * j+2], [i * j+3] and none higher
     # because [i * j+3] == values[2 * 5] == values[10], and j had to be less/equal than the limit n / i, which is
