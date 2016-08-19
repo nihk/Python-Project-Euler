@@ -71,7 +71,7 @@ def get_primes_below(n):
         values[i * j] = False
         j += 1
 
-    # Now all primes henceforth are odd, so I can use i += 2
+    # Now all numbers henceforth are odd, so I can use i += 2
     i = 3
     while i <= n / i:
         if values[i]:
